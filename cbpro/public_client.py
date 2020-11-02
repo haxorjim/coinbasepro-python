@@ -267,7 +267,13 @@ class PublicClient(object):
         url = self.url + endpoint
         r = self.session.request(method, url, params=params, data=data,
                                  auth=self.auth, timeout=30)
-        return r.json()
+
+        try:
+            content = r.json()
+        except ValueError:
+            content = r.content
+
+        return content
 
     def _send_paginated_message(self, endpoint, params=None):
         """ Send API message that results in a paginated response.

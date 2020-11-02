@@ -1008,3 +1008,38 @@ class AuthenticatedClient(PublicClient):
                 }
         """
         return self._send_message('get', '/fees')
+
+    def get_profiles(self):
+        """ Get your profiles
+
+        Returns:
+        """
+        return self._send_message('get', '/profiles')
+
+    def get_profile(self, profile_id):
+        """ Get a profile
+
+        Args:
+            profile_id (str): Profile ID
+
+        Returns:
+        """
+        return self._send_message('get', '/profiles/' + profile_id)
+
+    def profile_transfer(self, from_profile_id, to_profile_id, currency, amount):
+        """ Transfer funds between profiles.
+
+        Args:
+            from (str): Profile ID to withdraw
+            to (str): Profile ID to deposit
+            currency (str): Currency to transfer (eg. 'USD')
+            amount (Decimal): Amount to transfer
+
+        Returns:
+        """
+        params = {'from': from_profile_id,
+                  'to': to_profile_id,
+                  'currency': currency,  # example: USD
+                  'amount': amount}
+
+        return self._send_message('post', '/profiles/transfer', data=json.dumps(params))
