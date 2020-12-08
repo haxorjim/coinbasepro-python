@@ -49,6 +49,23 @@ class PublicClient(object):
         """
         return self._send_message('get', '/products')
 
+    def get_product(self, product_id):
+        """Get a single currency pairs details for trading.
+
+        Returns:
+            dict:  Info about single currency pair: Example:
+            {
+                "id": "BTC-USD",
+                "display_name": "BTC/USD",
+                "base_currency": "BTC",
+                "quote_currency": "USD",
+                "base_min_size": "0.01",
+                "base_max_size": "10000.00",
+                "quote_increment": "0.01"
+            }
+        """
+        return self._send_message('get', f"/products/{product_id}")
+
     def get_product_order_book(self, product_id, level=1):
         """Get a list of open orders for a product.
 
